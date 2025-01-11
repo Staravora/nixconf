@@ -29,7 +29,28 @@
 
 
   #Enable zsh
-  programs.zsh.enable = true;
+ # programs.zsh.enable = true;
+ #     users.extraUsers.staravora = {
+ #     shell = pkgs.zsh;
+ #   };
+
+  
+  #Enable zsh and ohmyzsh
+  programs.zsh = {
+    enable = true;
+    ohMyZsh = {
+      enable = true;
+      theme = "agnoster"; # Choose your preferred theme
+      plugins = [
+        "git"
+        "kubectl"
+        "helm"
+        "docker"
+      ]; # Add your preferred plugins
+    };
+  };
+  users.defaultUserShell = pkgs.zsh;
+
 
   # Set your time zone.
   time.timeZone = "Asia/Bangkok";
@@ -114,6 +135,7 @@
     git
     cmake
     zsh
+    oh-my-zsh
     fastfetch
     btop
     gparted
