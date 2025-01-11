@@ -52,6 +52,15 @@
   };
   users.defaultUserShell = pkgs.zsh;
 
+  #Enable Steam
+  programs.steam = {
+  enable = true;
+  package = pkgs.steam.override {
+    extraLibraries = p: with p; [
+      (lib.getLib networkmanager)
+    ];
+  };
+};
 
   # Set your time zone.
   time.timeZone = "Asia/Bangkok";
