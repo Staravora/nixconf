@@ -27,21 +27,25 @@
 
   #Enable flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-
-  #Enable zsh
- # programs.zsh.enable = true;
- #     users.extraUsers.staravora = {
- #     shell = pkgs.zsh;
- #   };
-
   
   #Enable zsh and ohmyzsh
   programs.zsh = {
     enable = true;
-    ohMyZsh = {
+    #autosuggestion.enable = true;
+    enableCompletion = true;
+    syntaxHighlighting.enable = true;
+
+    shellAliases = {
+      dot = "cd .dotfiles";
+      rebuild = "sudo nixos-rebuild switch --flake .";
+      update = "sudo nix-channel --update";
+     # upgrade = "sudo nixos-rebuild switch --flake . --upgrade";
+      conf = "sudo nano configuration.nix";
+      ll = "ls -l";
+    };
+      ohMyZsh = {
       enable = true;
-      theme = "agnoster"; # Choose your preferred theme
+      theme = "agnoster"; # Choose your preferred theme  
       plugins = [
         "git"
         "kubectl"
@@ -62,8 +66,6 @@
     ];
   };
 };
-
-#programs.steam.gamescopeSession.enable = true;
 
   # Set your time zone.
   time.timeZone = "Asia/Bangkok";
@@ -195,7 +197,7 @@
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  # networking.firewall.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
