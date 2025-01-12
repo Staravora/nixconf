@@ -39,8 +39,9 @@
       dot = "cd .dotfiles";
       rebuild = "sudo nixos-rebuild switch --flake .";
       update = "sudo nix-channel --update";
-     # upgrade = "sudo nixos-rebuild switch --flake . --upgrade";
+     # upgrade = "sudo nixos-rebuild switch --upgrade";
       conf = "sudo nano configuration.nix";
+      garbage = "sudo nix-collect-garbage -d";
       ll = "ls -l";
     };
       ohMyZsh = {
@@ -56,6 +57,8 @@
   };
   users.defaultUserShell = pkgs.zsh;
 
+  ### Gaming Optimizations ###
+
   #Enable Steam
   programs.steam = {
   enable = true;
@@ -66,6 +69,15 @@
     ];
   };
 };
+
+  #Enable OpenGL
+  hardware.graphics.enable = true;
+
+  #Video drivers and cards
+  # services.xserver.videoDrivers = ["nvidia"];
+  # services.xserver.videoDrivers = ["amdgpu"];
+
+  #hardware.nvidia.modesetting.enable = true;
 
   # Set your time zone.
   time.timeZone = "Asia/Bangkok";
@@ -100,6 +112,7 @@
 
   #enable virtualisation
   virtualisation.vmware.guest.enable = true;
+  virtualisation.vmware.host.enable = true;
 
   #enable vpn
   services.mullvad-vpn.enable = true;
@@ -178,6 +191,9 @@
    #proton-ge-bin
     mangohud
     goverlay
+    pcsx2
+    rpcs3
+    shadps4
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
