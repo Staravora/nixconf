@@ -55,12 +55,15 @@
   #Enable Steam
   programs.steam = {
   enable = true;
+  gamescopeSession.enable = true;
   package = pkgs.steam.override {
     extraLibraries = p: with p; [
       (lib.getLib networkmanager)
     ];
   };
 };
+
+#programs.steam.gamescopeSession.enable = true;
 
   # Set your time zone.
   time.timeZone = "Asia/Bangkok";
@@ -150,6 +153,7 @@
     btop
     gparted
     isoimagewriter
+    libreoffice
     cmatrix
     brave
     chromium
@@ -169,6 +173,7 @@
     wine
     winetricks
     protontricks
+   #proton-ge-bin
     mangohud
     goverlay
   ];
