@@ -2,18 +2,23 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
+  
+  #test
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;  
+  boot.kernelPackages = pkgs.linuxPackages_latest; 
+
+  #Hyprland
+  #programs.hyprland.enable = true;
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -27,6 +32,26 @@
 
   #Enable flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  #Neovim conf
+
+  programs.neovim = {
+    enable = true;
+    viAlias = true;
+    vimAlias = true;
+    defaultEditor = true;
+    configure = {
+      packages.myVimPackage = with pkgs.vimPlugins; {
+        start = [
+          lazy-nvim          # instead of 'lazy'
+          neo-tree-nvim      # instead of 'neo-tree'
+          onedark-nvim       # instead of 'onedark'
+        ];
+        opt = [ ];
+      };
+    };
+  };
+  
   
   #Enable zsh and ohmyzsh
   programs.zsh = {
@@ -38,7 +63,8 @@
     shellAliases = {
       dot = "cd .dotfiles";
       rebuild = "sudo nixos-rebuild switch --flake .";
-      update = "sudo nix-channel --update";
+      update = "sudo nix flake update";
+     # update = "sudo nix-channel --update";
      # upgrade = "sudo nixos-rebuild switch --upgrade";
       conf = "sudo nano configuration.nix";
       garbage = "sudo nix-collect-garbage -d";
@@ -56,6 +82,7 @@
     };
   };
   users.defaultUserShell = pkgs.zsh;
+
 
   ### Gaming Optimizations ###
 
@@ -160,8 +187,11 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+    neovim
     git
     cmake
+    gcc
+    clang
     zsh
     oh-my-zsh
     fastfetch
