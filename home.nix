@@ -1,5 +1,12 @@
 { config, pkgs, inputs, ... }:
 
+let
+  myAliases = {
+    ll = "ls -l";
+    ".." = "cd..";
+    };
+in
+
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -70,6 +77,26 @@
   home.sessionVariables = {
     # EDITOR = "emacs";
   };
+  
+  #Bash aliases
+  programs.bash = {
+    enable = true;
+    shellAliases = myAliases;
+  };
+
+  #zsh aliases
+  programs.zsh = {
+    oh-my-zsh = {
+        enable = true;
+        plugins = [ "git" "thefuck" ];
+        theme = "agnoster";
+        shellAliases = myAliases;
+        extraConfig = ''
+            #additional options here
+        '';
+  };
+
+  
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

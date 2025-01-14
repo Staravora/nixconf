@@ -15,7 +15,12 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest; 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  #Zsh btw
+  environment.shells = with pkgs; [ bash, zsh, fish ];
+  users.defaultUserShell = pkgs.zsh;
+  programs.zsh.enable = true;
 
   #Hyprland
   #programs.hyprland.enable = true;
@@ -52,36 +57,6 @@
     };
   };
   
-  
-  #Enable zsh and ohmyzsh
-  programs.zsh = {
-    enable = true;
-    #autosuggestion.enable = true;
-    enableCompletion = true;
-    syntaxHighlighting.enable = true;
-
-    shellAliases = {
-      dot = "cd .dotfiles";
-      rebuild = "sudo nixos-rebuild switch --flake .";
-      update = "sudo nix flake update";
-     # update = "sudo nix-channel --update";
-     # upgrade = "sudo nixos-rebuild switch --upgrade";
-      conf = "sudo nano configuration.nix";
-      garbage = "sudo nix-collect-garbage -d";
-      ll = "ls -l";
-    };
-      ohMyZsh = {
-      enable = true;
-      theme = "agnoster"; # Choose your preferred theme  
-      plugins = [
-        "git"
-        "kubectl"
-        "helm"
-        "docker"
-      ]; # Add your preferred plugins
-    };
-  };
-  users.defaultUserShell = pkgs.zsh;
 
 
   ### Gaming Optimizations ###
