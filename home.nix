@@ -1,11 +1,5 @@
 { config, pkgs, inputs, ... }:
 
-let
-  myAliases = {
-    ll = "ls -l";
-    ".." = "cd..";
-    };
-in
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -78,25 +72,48 @@ in
     # EDITOR = "emacs";
   };
   
-  #Bash aliases
-  programs.bash = {
-    enable = true;
-    shellAliases = myAliases;
-  };
-
-  #zsh aliases
-  programs.zsh = {
-    oh-my-zsh = {
-        enable = true;
-        plugins = [ "git" "thefuck" ];
-        theme = "agnoster";
-        shellAliases = myAliases;
-        extraConfig = ''
-            #additional options here
-        '';
-  };
-
   
+  #programs.zsh = {
+  #  enable = true;
+  #  dotDir = ".config/zsh"
+  #  shellAliases = {
+  #    ll = "ls -l";
+  #    la = "ls -A";
+  #    ".." = "cd ..";
+  #    rebuild = "sudo nixos-rebuild switch --flake .";
+  #    update = "sudo nixos update flake";
+     # upgrade = "sudo nixos-rebild switch --flake . --upgrade";
+     # update = "home-manager switch";  # Changed to home-manager command
+        
+  #  };
+    
+  #  enableCompletion = true;
+    #autosuggestions.enable = true;
+  #  syntaxHighlighting.enable = true;
+    
+  #  plugins = [
+      # ... (same plugin configuration as before)
+  #  ];
+
+  #  oh-my-zsh = {
+  #    enable = true;
+  #    plugins = [ "git" "sudo" "docker" ];
+  #    theme = "agnoster";
+  #  };
+
+  #  initExtra = ''
+      # Custom zsh functions or scripts
+  #    function cdl() {
+  #     cd "$@" && ls -lah
+  #    }
+
+  #    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+  #  '';
+  #};
+
+
+  #Backup user configs
+  #home.file.".config/nvim/init.lua".source = ./init.lua;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

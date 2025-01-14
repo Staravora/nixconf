@@ -17,10 +17,37 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  #Zsh btw
-  environment.shells = with pkgs; [ bash, zsh, fish ];
+  # Enable Zsh
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    #autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
+    ohMyZsh = {
+      enable = true;
+      plugins = [
+        "git"
+        "sudo"
+        "docker"
+        "python"
+        "helm"
+        "kubectl"
+      ];
+      theme = "agnoster";
+    };
+    shellAliases = {
+      # Some useful aliases
+      ls = "ls --color=auto";
+      ll = "ls -l";
+      dot = "cd .dotfiles";
+      update = "sudo nixos-rebuild switch --flake .";
+      conf = "nvim configuration.nix";
+      upgrade = "sudo nixos-rebuild switch --flake . --upgrade";
+      rebuild-home = "home-manager switch --flake .";
+      garbage = "sudo nix-collect-garbage -d";
+    };
+  }; 
   users.defaultUserShell = pkgs.zsh;
-  programs.zsh.enable = true;
 
   #Hyprland
   #programs.hyprland.enable = true;
@@ -57,7 +84,7 @@
     };
   };
   
-
+  
 
   ### Gaming Optimizations ###
 
