@@ -17,6 +17,9 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  #flatpak support
+  services.flatpak.enable = true;
+
   # Enable Zsh
   programs.zsh = {
     enable = true;
@@ -227,6 +230,7 @@
     fastfetch
     btop
     nvtopPackages.full
+    flatpak
     gparted
     isoimagewriter
     libreoffice
@@ -236,6 +240,7 @@
     kitty
     ghostty
     gnome-tweaks
+    gnome-menus
     #gnome-extension-manager
     steam
     discord
@@ -249,6 +254,7 @@
     wine
     winetricks
     protontricks
+    protonup-qt
    #proton-ge-bin
     mangohud
     goverlay
