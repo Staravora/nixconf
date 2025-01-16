@@ -111,6 +111,8 @@
 
 
   # Configure NVIDIA settings
+  services.xserver.videoDrivers = [ "nvidia" ];
+
   hardware.nvidia = {
     # Most users do not need to change this
     package = config.boot.kernelPackages.nvidiaPackages.stable;
@@ -176,7 +178,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -224,6 +226,7 @@
     oh-my-zsh
     fastfetch
     btop
+    nvtopPackages.full
     gparted
     isoimagewriter
     libreoffice
