@@ -20,36 +20,43 @@
   #flatpak support
   services.flatpak.enable = true;
 
-  # Enable Zsh
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
+  #zsh
+  programs.zsh.enable = true;
+    users.users.staravora = {
+    shell = pkgs.zsh;  # This makes Zsh your default shell system-wide
+    # ... other user settings
+  };
+
+#  # Enable Zsh
+#  programs.zsh = {
+#    enable = true;
+#    enableCompletion = true;
     #autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-    ohMyZsh = {
-      enable = true;
-      plugins = [
-        "git"
-        "sudo"
-        "docker"
-        "python"
-        "helm"
-        "kubectl"
-      ];
-      theme = "agnoster";
-    };
-    shellAliases = {
-      # Some useful aliases
-      ls = "ls --color=auto";
-      ll = "ls -l";
-      dot = "cd .dotfiles";
-      rebuild = "sudo nixos-rebuild switch --flake .";
-      conf = "nvim configuration.nix";
-      upgrade = "sudo nixos-rebuild switch --flake . --upgrade";
-      garbage = "sudo nix-collect-garbage -d";
-    };
-  }; 
-  users.defaultUserShell = pkgs.zsh;
+#    syntaxHighlighting.enable = true;
+#    ohMyZsh = {
+#      enable = true;
+#      plugins = [
+#        "git"
+#        "sudo"
+#        "docker"
+#        "python"
+#        "helm"
+#        "kubectl"
+#      ];
+#      theme = "agnoster";
+#    };
+#    shellAliases = {
+#      # Some useful aliases
+#      ls = "ls --color=auto";
+#      ll = "ls -l";
+#      dot = "cd .dotfiles";
+#      rebuild = "sudo nixos-rebuild switch --flake .";
+#      conf = "nvim configuration.nix";
+#      upgrade = "sudo nixos-rebuild switch --flake . --upgrade";
+#      garbage = "sudo nix-collect-garbage -d";
+#    };
+#  }; 
+#  users.defaultUserShell = pkgs.zsh;
 
   #Hyprland
   #programs.hyprland.enable = true;

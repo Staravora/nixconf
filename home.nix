@@ -16,6 +16,42 @@
   # release notes.
   home.stateVersion = "24.11"; # Please read the comment before changing.
 
+    programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    syntaxHighlighting.enable = true;
+    oh-my-zsh = {      # Changed from ohMyZsh to oh-my-zsh
+      enable = true;
+      plugins = [
+        "git"
+        "sudo"
+        "docker"
+        "python"
+        "helm"
+        "kubectl"
+      ];
+      theme = "agnoster";
+    };
+    shellAliases = {
+      ls = "ls --color=auto";
+      ll = "ls -l";
+      dot = "cd .dotfiles";
+      rebuild = "sudo nixos-rebuild switch --flake .";
+      conf = "nvim configuration.nix";
+      upgrade = "sudo nixos-rebuild switch --flake . --upgrade";
+      garbage = "sudo nix-collect-garbage -d";
+    };
+  };   
+
+    programs.ghostty = {
+      enable = true;
+      settings = {
+        theme = "Aurora";
+        background-opacity = "0.85";
+        background-blur-radius = "20";
+      };
+    };
+  
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
