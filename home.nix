@@ -36,6 +36,8 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
   ];
+  
+
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -44,7 +46,7 @@
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
     # ".screenrc".source = dotfiles/screenrc;
-
+    
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
     #   org.gradle.console=verbose
@@ -72,45 +74,6 @@
     # EDITOR = "emacs";
   };
   
-  
-  #programs.zsh = {
-  #  enable = true;
-  #  dotDir = ".config/zsh"
-  #  shellAliases = {
-  #    ll = "ls -l";
-  #    la = "ls -A";
-  #    ".." = "cd ..";
-  #    rebuild = "sudo nixos-rebuild switch --flake .";
-  #    update = "sudo nixos update flake";
-     # upgrade = "sudo nixos-rebild switch --flake . --upgrade";
-     # update = "home-manager switch";  # Changed to home-manager command
-        
-  #  };
-    
-  #  enableCompletion = true;
-    #autosuggestions.enable = true;
-  #  syntaxHighlighting.enable = true;
-    
-  #  plugins = [
-      # ... (same plugin configuration as before)
-  #  ];
-
-  #  oh-my-zsh = {
-  #    enable = true;
-  #    plugins = [ "git" "sudo" "docker" ];
-  #    theme = "agnoster";
-  #  };
-
-  #  initExtra = ''
-      # Custom zsh functions or scripts
-  #    function cdl() {
-  #     cd "$@" && ls -lah
-  #    }
-
-  #    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-  #  '';
-  #};
-
 
   #Backup user configs
   #home.file.".config/nvim/init.lua".source = ./init.lua;

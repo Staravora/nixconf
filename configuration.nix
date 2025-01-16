@@ -40,10 +40,9 @@
       ls = "ls --color=auto";
       ll = "ls -l";
       dot = "cd .dotfiles";
-      update = "sudo nixos-rebuild switch --flake .";
+      rebuild = "sudo nixos-rebuild switch --flake .";
       conf = "nvim configuration.nix";
       upgrade = "sudo nixos-rebuild switch --flake . --upgrade";
-      rebuild-home = "home-manager switch --flake .";
       garbage = "sudo nix-collect-garbage -d";
     };
   }; 
@@ -102,11 +101,38 @@
   #Enable OpenGL
   hardware.graphics.enable = true;
 
-  #Video drivers and cards
-  # services.xserver.videoDrivers = ["nvidia"];
-  # services.xserver.videoDrivers = ["amdgpu"];
+   # Specify AMD drivers
+  #services.xserver.videoDrivers = [ "amdgpu" ];
 
-  #hardware.nvidia.modesetting.enable = true;
+  # Additional settings for AMD GPUs
+  # Enable early KMS (Kernel Mode Setting) for better boot performance
+  #boot.kernelParams = [ "amdgpu.exp_hw_support=1" ]; # This might be necessary for newer GPUs or specific features
+
+
+
+  # Configure NVIDIA settings
+  hardware.nvidia = {
+    # Most users do not need to change this
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    # Enable the NVIDIA settings menu
+    nvidiaSettings = true;
+    # Enable modesetting for all chips (legacy and modern)
+    modesetting.enable = true;
+    # Optionally, enable power management
+    powerManagement.enable = false;
+    # Optionally, enable nvidia-persistenced for better performance
+    # nvidia.persistenced = true;
+  };
+
+    # Configure PRIME for hybrid graphics 
+    hardware.nvidia.prime = {
+      offload.enable = true;
+      # Bus ID of the NVIDIA GPU
+      nvidiaBusId = "PCI:1:0:0";
+      # Bus ID of the AMD GPU
+      amdgpuBusId = "PCI:5:0:0";
+  };
+
 
   # Set your time zone.
   time.timeZone = "Asia/Bangkok";
