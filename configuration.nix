@@ -232,6 +232,10 @@
     nvtopPackages.full
     flatpak
     gparted
+    vlc
+    gwenview
+    cava
+    lollypop
     isoimagewriter
     libreoffice
     cmatrix
@@ -262,6 +266,8 @@
     rpcs3
     shadps4
   ];
+
+  #gnome-extension-manager is broken, install through flatpak
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

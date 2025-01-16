@@ -16,12 +16,31 @@
   # release notes.
   home.stateVersion = "24.11"; # Please read the comment before changing.
 
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
+    # Adds the 'hello' command to your environment. It prints a friendly
+    # "Hello, world!" when run.
     pkgs.hello
+
+
+  #];
+
+  ] ++ (with pkgs.gnomeExtensions; [
+    arcmenu
+    blur-my-shell
+    caffeine
+    dash-to-dock
+    extension-list
+    mpris-label
+    open-bar
+    top-bar-organizer
+  ]);
+
+  programs.gnome-shell = {
+    enable = true;
+  };
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -35,9 +54,8 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-  ];
-  
 
+  
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
