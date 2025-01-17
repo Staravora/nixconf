@@ -27,36 +27,6 @@
     # ... other user settings
   };
 
-#  # Enable Zsh
-#  programs.zsh = {
-#    enable = true;
-#    enableCompletion = true;
-    #autosuggestions.enable = true;
-#    syntaxHighlighting.enable = true;
-#    ohMyZsh = {
-#      enable = true;
-#      plugins = [
-#        "git"
-#        "sudo"
-#        "docker"
-#        "python"
-#        "helm"
-#        "kubectl"
-#      ];
-#      theme = "agnoster";
-#    };
-#    shellAliases = {
-#      # Some useful aliases
-#      ls = "ls --color=auto";
-#      ll = "ls -l";
-#      dot = "cd .dotfiles";
-#      rebuild = "sudo nixos-rebuild switch --flake .";
-#      conf = "nvim configuration.nix";
-#      upgrade = "sudo nixos-rebuild switch --flake . --upgrade";
-#      garbage = "sudo nix-collect-garbage -d";
-#    };
-#  }; 
-#  users.defaultUserShell = pkgs.zsh;
 
   #Hyprland
   #programs.hyprland.enable = true;
@@ -93,22 +63,32 @@
     };
   };
   
-  
-
   ### Gaming Optimizations ###
 
-  #Enable Steam
-  programs.steam = {
-  enable = true;
-  gamescopeSession.enable = true;
-  package = pkgs.steam.override {
-    extraLibraries = p: with p; [
-      (lib.getLib networkmanager)
-    ];
+  # First, define the package overrides at the top level
+  nixpkgs.config.packageOverrides = pkgs: {
+    steam = pkgs.steam.override {
+      extraPkgs = pkgs: with pkgs; [
+        xorg.libXcursor
+        xorg.libXi
+        xorg.libXinerama
+        xorg.libXScrnSaver
+        libpng
+        libpulseaudio
+        libvorbis
+        stdenv.cc.cc.lib
+        libkrb5
+        keyutils
+      ];
+    };
   };
-};
 
-  #Enable OpenGL
+  # Then, enable Steam
+  programs.steam = {
+    enable = true;
+  }; 
+
+   #Enable OpenGL
   hardware.graphics.enable = true;
 
    # Specify AMD drivers
