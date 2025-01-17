@@ -42,7 +42,16 @@
       upgrade = "sudo nixos-rebuild switch --flake . --upgrade";
       garbage = "sudo nix-collect-garbage -d";
     };
-  };   
+  };  
+
+    programs.ghostty = {
+      enable = true;
+      settings = {
+        theme = "Aurora";
+        background-opacity = 0.85;
+        background-blur-radius = 20;
+      };
+    };
 
   #Neovim config
   programs.neovim = {
@@ -63,6 +72,7 @@
     pkgs.fd
     pkgs.nodejs
     pkgs.gcc
+    #pkgs.ghostty
 
   ] ++ (with pkgs.gnomeExtensions; [
     arcmenu
