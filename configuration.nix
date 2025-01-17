@@ -230,6 +230,8 @@
     neovim
     git
     cmake
+    gnumake
+    python3Full
     gcc
     clang
     zsh
@@ -273,6 +275,7 @@
     rpcs3
     shadps4
   ];
+
 
   #gnome-extension-manager is broken, install through flatpak
 
