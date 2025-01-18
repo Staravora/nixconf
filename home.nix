@@ -44,6 +44,7 @@
     };
   };  
 
+    #Ghostty config
     programs.ghostty = {
       enable = true;
       settings = {
@@ -61,6 +62,36 @@
       git
     ];
   }; # Add this closing brace
+
+  #kitty config
+   programs.kitty = {
+    enable = true;
+    settings = {
+      # Basic settings
+      font_family = "Argonaut";
+      font_size = 12;
+      
+      # Window settings
+      remember_window_size = "yes";
+      initial_window_width = "1000";
+      initial_window_height = "800";
+      
+      # Your other kitty settings here
+      background_opacity = "0.85";
+      enable_audio_bell = false;
+    };
+    
+    # If you have additional keybindings
+    keybindings = {
+      "ctrl+shift+c" = "copy_to_clipboard";
+      "ctrl+shift+v" = "paste_from_clipboard";
+    };
+    
+    # If you want to include additional config files
+    extraConfig = ''
+      # Any additional raw configuration
+    '';
+  };
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
