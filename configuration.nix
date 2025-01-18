@@ -15,7 +15,16 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest; #Latest mainline kernel
+  #boot.kernelPackages = pkgs.linuxPackages_zen; #Zen kernel
+  #boot.kernelPackages = pkgs.linuxPackages_cachyos; #Cachyos kernel - doesn't work
+
+  #xanmod boot is defined in flake.nix which can be found in misc
+
+  powerManagement = {
+    enable = true;
+    cpuFreqGovernor = "performance";
+  };
 
   #flatpak support
   services.flatpak.enable = true;
@@ -248,7 +257,7 @@
     winetricks
     protontricks
     protonup-qt
-   #proton-ge-bin
+    #proton-ge-bin
     mangohud
     goverlay
     pcsx2
