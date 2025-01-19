@@ -109,8 +109,8 @@
     arcmenu
     blur-my-shell
     caffeine
-    #dash-to-dock
-    dash2dock-lite
+    dash-to-dock
+    #dash2dock-lite
     extension-list
     mpris-label
     open-bar
