@@ -15,10 +15,10 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  #boot.kernelPackages = pkgs.linuxPackages_latest; #Latest mainline kernel
+  boot.kernelPackages = pkgs.linuxPackages_latest; #Latest mainline kernel
   #boot.kernelPackages = pkgs.linuxPackages_xanmod_latest; #Latest Xanmod kernel 
   #boot.kernelPackages = pkgs.linuxPackages_zen; #Zen kernel
-  boot.kernelPackages = pkgs.linuxPackages_cachyos; #Cachyos kernel 
+  #boot.kernelPackages = pkgs.linuxPackages_cachyos; #Cachyos kernel 
 
 
   powerManagement = {
@@ -215,6 +215,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    smartmontools
     wget
     neovim
     git
