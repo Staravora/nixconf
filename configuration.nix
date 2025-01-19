@@ -1,3 +1,10 @@
+
+#    .dBBBBP  dBBBBBBP dBBBBBb   dBBBBBb dBBBBBb  dBP dP  dBBBBP dBBBBBb dBBBBBb 
+#    BP                     BB       dBP      BB         dB'.BP      dBP      BB 
+#    `BBBBb    dBP      dBP BB   dBBBBK'  dBP BB dB .BP dB'.BP   dBBBBK'  dBP BB 
+#       dBP   dBP      dBP  BB  dBP  BB  dBP  BB BB.BP dB'.BP   dBP  BB  dBP  BB 
+#  dBBBBP'   dBP      dBBBBBBB dBP  dB' dBBBBBBB BBBP dBBBBP   dBP  dB' dBBBBBBB 
+#                                                                                
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running 'nixos-help').
@@ -254,6 +261,7 @@
     btop
     nvtopPackages.full
     fastfetch
+    nitch
 
     # Shell and Terminal
     zsh
