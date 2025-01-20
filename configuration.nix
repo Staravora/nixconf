@@ -1,10 +1,9 @@
-
-#    .dBBBBP  dBBBBBBP dBBBBBb   dBBBBBb dBBBBBb  dBP dP  dBBBBP dBBBBBb dBBBBBb 
-#    BP                     BB       dBP      BB         dB'.BP      dBP      BB 
-#    `BBBBb    dBP      dBP BB   dBBBBK'  dBP BB dB .BP dB'.BP   dBBBBK'  dBP BB 
-#       dBP   dBP      dBP  BB  dBP  BB  dBP  BB BB.BP dB'.BP   dBP  BB  dBP  BB 
-#  dBBBBP'   dBP      dBBBBBBB dBP  dB' dBBBBBBB BBBP dBBBBP   dBP  dB' dBBBBBBB 
-#                                                                                
+#    _________ __                                               
+#   /   _____//  |______ ____________ ___  __________________   
+#   \_____  \\   __\__  \\_  __ \__  \\  \/ /  _ \_  __ \__  \  
+#   /        \|  |  / __ \|  | \// __ \\   (  <_> )  | \// __ \_
+#  /_______  /|__| (____  /__|  (____  /\_/ \____/|__|  (____  /
+#          \/           \/           \/                      \/                                               
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running 'nixos-help').
@@ -68,18 +67,26 @@
   ### Desktop Environment ###
   services.xserver = {
     enable = true;
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
     xkb = {
       layout = "us";
       variant = "";
     };
-    # GPU Drivers
-    videoDrivers = [ "amdgpu" ];
-    # For NVIDIA, uncomment these:
-    # videoDrivers = [ "nvidia" ];
+    videoDrivers = [ "amdgpu"];
+
+    # SDDM Config
+    displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
+      theme = "sugar-dark";
+    };
   };
 
+  # Enable Hyprland
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
+ 
   ### Graphics and GPU ###
   hardware.graphics = {
     enable = true;
@@ -91,7 +98,7 @@
       amdvlk
     ];
   };
-
+  
   # Nvidia configuration (currently commented out)
   # hardware.nvidia = {
   #   package = config.boot.kernelPackages.nvidiaPackages.stable;
@@ -106,7 +113,7 @@
   #   nvidiaBusId = "PCI:1:0:0";
   #   amdgpuBusId = "PCI:5:0:0";
   # };
-
+  
   ### Audio ###
   security.rtkit.enable = true;
   services.pipewire = {
@@ -119,12 +126,22 @@
     # jack.enable = true;  # Uncomment for JACK support
   };
   services.pulseaudio.enable = false;
-
+  
   ### Power Management ###
   powerManagement = {
     enable = true;
     cpuFreqGovernor = "performance";
   };
+  
+  ### Thunar File Manager ###
+  programs.thunar.enable = true;
+  programs.xfconf.enable = true;
+  programs.thunar.plugins = with pkgs.xfce; [
+    thunar-archive-plugin
+    thunar-volman
+  ];
+  services.gvfs.enable = true; # Mount, trash, and other functionalities
+  services.tumbler.enable = true; # Thumbnail support for images
 
   ### User Configuration ###
   users.users.staravora = {
@@ -141,7 +158,6 @@
   programs = {
     zsh.enable = true;
     firefox.enable = true;
-    # hyprland.enable = true;  # Uncomment to enable Hyprland
     steam.enable = true;
     neovim = {
       enable = true;
@@ -221,7 +237,7 @@
     options = "--delete-old";
     persistent = true;
   };
-  boot.loader.systemd-boot.configurationLimit = 10;  # Keep 10 generations
+  boot.loader.systemd-boot.configurationLimit = 30;  # Keep 30 generations
   nix.settings.auto-optimise-store = true;          # Optimize nix store
   nix.settings.keep-outputs = true;                 # Keep build dependencies
   nix.settings.keep-derivations = true;             # Keep build instructions
@@ -243,6 +259,22 @@
 
   ### System Packages ###
   environment.systemPackages = with pkgs; [
+    # Hyprland Specific
+    waybar
+    dunst
+    rofi-wayland
+    swww # for wallpapers
+    swaylock-effects
+    wlogout
+    grimblast # screenshots
+    slurp
+    wl-clipboard
+    brightnessctl
+    pamixer # audio control
+    networkmanagerapplet
+    blueman
+    pywal
+
     # Development Tools
     vim
     neovim
@@ -262,17 +294,15 @@
     nvtopPackages.full
     fastfetch
     nitch
+    home-manager
+    sddm-chili-theme
+    hyprlock
 
     # Shell and Terminal
     zsh
     oh-my-zsh
     kitty
     ghostty
-
-    # Desktop Environment
-    gnome-tweaks
-    gnome-menus
-    # gnome-extension-manager # Install through flatpak instead
 
     # Multimedia
     vlc

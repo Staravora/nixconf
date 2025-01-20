@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     hyprland.url = "github:hyprwm/Hyprland";  # Changed from hyprland-community to hyprwm
+    hyprlock.url = "github:hyprwm/hyprlock";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -11,7 +12,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, hyprland, home-manager, ... }: {    # Added hyprland to outputs
+  outputs = { self, nixpkgs, hyprland, hyprlock, home-manager, ... }: {    # Added hyprland to outputs
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
